@@ -5,9 +5,9 @@
     android:layout_height="match_parent"
     tools:context=".ForecastFragment">
 
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/forecast_recycler"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Forecast" />
+        android:layout_height="match_parent"/>
 
 </FrameLayout>

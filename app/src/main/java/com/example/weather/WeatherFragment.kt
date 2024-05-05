@@ -9,15 +9,16 @@ import com.example.weather.databinding.FragmentWeatherBinding
 
 class WeatherFragment : Fragment() {
 
-    private lateinit var binding: FragmentWeatherBinding
+    private var _binding: FragmentWeatherBinding? = null
+    private val binding get() = _binding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         // Inflate the layout for this fragment
-        binding = FragmentWeatherBinding.inflate(inflater)
-        return binding.root
+        _binding = FragmentWeatherBinding.inflate(inflater, container, false)
+        return binding?.root
     }
 
     companion object {
