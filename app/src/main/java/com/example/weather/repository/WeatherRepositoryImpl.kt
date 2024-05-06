@@ -4,12 +4,12 @@ import com.example.weather.model.Coord
 import com.example.weather.model.currentweather.CurrentWeatherResult
 import com.example.weather.model.forecast.City
 import com.example.weather.model.forecast.Forecast
-import com.example.weather.network.RetrofitHelper
 import com.example.weather.network.WeatherApi
+import javax.inject.Inject
 
-class WeatherRepositoryImpl () : WeatherRepository {
-
-    private val weatherApi: WeatherApi = RetrofitHelper.getInstance().create(WeatherApi::class.java)
+class WeatherRepositoryImpl @Inject constructor(
+    private val weatherApi: WeatherApi
+) : WeatherRepository {
 
     override suspend fun getCoordinates(city: String): Coord {
         val response = weatherApi.getGeocoding(city, LIMIT, APP_ID)

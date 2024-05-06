@@ -12,7 +12,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.weather.databinding.FragmentForecastBinding
 import com.example.weather.model.forecast.ForecastResult
 import com.example.weather.viewmodel.MainViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ForecastFragment : Fragment() {
 
     private val mainViewModel: MainViewModel by activityViewModels()

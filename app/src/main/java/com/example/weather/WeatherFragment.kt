@@ -11,7 +11,9 @@ import androidx.lifecycle.Observer
 import com.example.weather.databinding.FragmentWeatherBinding
 import com.example.weather.repository.WeatherRepositoryImpl
 import com.example.weather.viewmodel.MainViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class WeatherFragment : Fragment() {
 
     private val mainViewModel: MainViewModel by activityViewModels()

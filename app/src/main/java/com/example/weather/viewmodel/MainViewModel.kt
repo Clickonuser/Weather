@@ -7,14 +7,16 @@ import com.example.weather.model.Coord
 import com.example.weather.model.currentweather.CurrentWeatherResult
 import com.example.weather.model.forecast.Forecast
 import com.example.weather.repository.WeatherRepository
-import com.example.weather.repository.WeatherRepositoryImpl
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
 
-class MainViewModel : ViewModel() {
-
-    private val weatherRepository: WeatherRepository = WeatherRepositoryImpl()
+@HiltViewModel
+class MainViewModel @Inject constructor(
+    private val weatherRepository: WeatherRepository
+) : ViewModel() {
 
     private val coordinates: MutableLiveData<Coord> = MutableLiveData()
     val coordinatesResult: LiveData<Coord> = coordinates
