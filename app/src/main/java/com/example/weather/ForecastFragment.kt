@@ -5,11 +5,17 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.weather.databinding.FragmentForecastBinding
+import com.example.weather.model.forecast.ForecastResult
+import com.example.weather.viewmodel.MainViewModel
 
 class ForecastFragment : Fragment() {
+
+    private val mainViewModel: MainViewModel by activityViewModels()
 
     private var _binding: FragmentForecastBinding? = null
     private val binding get() = _binding
@@ -30,8 +36,24 @@ class ForecastFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         layoutManager = LinearLayoutManager(requireContext())
         binding?.forecastRecycler?.layoutManager = layoutManager
-        adapter = ForecastAdapter(listOf())
+        adapter = ForecastAdapter(requireContext(), listOf())
         binding?.forecastRecycler?.adapter = adapter
+
+        mainViewModel.forecastResult.observe(viewLifecycleOwner, Observer { itForecast ->
+            val forecastResultList = mutableListOf<ForecastResult>()
+            itForecast.list.forEach {
+                forecastResultList.add(
+                    ForecastResult(
+                        main = it.weather.first().main,
+                        date = it.dt_txt,
+                        temp = it.main.temp.toString(),
+                        description = it.weather.first().description
+                    )
+                )
+            }
+            adapter.updateList(forecastResultList)
+        })
+
     }
 
     companion object {
