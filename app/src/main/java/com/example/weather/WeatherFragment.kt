@@ -9,7 +9,11 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import com.example.weather.databinding.FragmentWeatherBinding
-import com.example.weather.repository.WeatherRepositoryImpl
+import com.example.weather.repository.WeatherRepositoryImpl.Companion.WEATHER_TYPE_CLEAR
+import com.example.weather.repository.WeatherRepositoryImpl.Companion.WEATHER_TYPE_CLOUDS
+import com.example.weather.repository.WeatherRepositoryImpl.Companion.WEATHER_TYPE_RAIN
+import com.example.weather.repository.WeatherRepositoryImpl.Companion.WEATHER_TYPE_SNOW
+import com.example.weather.repository.WeatherRepositoryImpl.Companion.WEATHER_TYPE_THUNDERSTORM
 import com.example.weather.viewmodel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -42,35 +46,35 @@ class WeatherFragment : Fragment() {
             binding?.weatherWindSpeedValue?.text = it.windSpeed.toString()
 
             when(it.main) {
-                WeatherRepositoryImpl.WEATHER_TYPE_CLEAR -> {
+                WEATHER_TYPE_CLEAR -> {
                     binding?.weatherImage?.setImageDrawable(
                         ContextCompat.getDrawable(
                             requireContext(),
                             R.drawable.clear
                         ))
                 }
-                WeatherRepositoryImpl.WEATHER_TYPE_CLOUDS -> {
+                WEATHER_TYPE_CLOUDS -> {
                     binding?.weatherImage?.setImageDrawable(
                         ContextCompat.getDrawable(
                             requireContext(),
                             R.drawable.clouds
                         ))
                 }
-                WeatherRepositoryImpl.WEATHER_TYPE_RAIN -> {
+                WEATHER_TYPE_RAIN -> {
                     binding?.weatherImage?.setImageDrawable(
                         ContextCompat.getDrawable(
                             requireContext(),
                             R.drawable.rain
                         ))
                 }
-                WeatherRepositoryImpl.WEATHER_TYPE_THUNDERSTORM -> {
+                WEATHER_TYPE_THUNDERSTORM -> {
                     binding?.weatherImage?.setImageDrawable(
                         ContextCompat.getDrawable(
                             requireContext(),
                             R.drawable.thunderstorm
                         ))
                 }
-                WeatherRepositoryImpl.WEATHER_TYPE_SNOW -> {
+                WEATHER_TYPE_SNOW -> {
                     binding?.weatherImage?.setImageDrawable(
                         ContextCompat.getDrawable(
                             requireContext(),
@@ -84,7 +88,6 @@ class WeatherFragment : Fragment() {
                             R.drawable.mist
                         ))
                 }
-
             }
 
         })

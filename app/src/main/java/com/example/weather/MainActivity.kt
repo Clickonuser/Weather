@@ -1,7 +1,9 @@
 package com.example.weather
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
@@ -33,9 +35,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         initViews()
-        prepareViewPager()
 
         mainInputField.setEndIconOnClickListener {
+            hidingKeyboard()
             lifecycleScope.launch(Dispatchers.Main) {
                 mainViewModel.getCoordinates(mainInputField.editText?.text.toString())
             }
@@ -52,12 +54,20 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
+        prepareViewPager()
     }
 
     private fun initViews() {
         viewPager = binding.viewPager
         tabLayout = binding.tabLayout
         mainInputField = binding.mainInputField
+    }
+
+    private fun hidingKeyboard() {
+        val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        if (inputMethodManager.isActive) {
+            inputMethodManager.hideSoftInputFromWindow(binding.root.windowToken, 0)
+        }
     }
 
     private fun prepareViewPager() {
@@ -73,5 +83,4 @@ class MainActivity : AppCompatActivity() {
             tab.text = tabTitlesArray[position]
         }.attach()
     }
-
 }

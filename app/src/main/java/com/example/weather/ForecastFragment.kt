@@ -36,10 +36,8 @@ class ForecastFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        layoutManager = LinearLayoutManager(requireContext())
-        binding?.forecastRecycler?.layoutManager = layoutManager
-        adapter = ForecastAdapter(requireContext(), listOf())
-        binding?.forecastRecycler?.adapter = adapter
+
+        initViews()
 
         mainViewModel.forecastResult.observe(viewLifecycleOwner, Observer { itForecast ->
             val forecastResultList = mutableListOf<ForecastResult>()
@@ -55,7 +53,13 @@ class ForecastFragment : Fragment() {
             }
             adapter.updateList(forecastResultList)
         })
+    }
 
+    private fun initViews() {
+        layoutManager = LinearLayoutManager(requireContext())
+        binding?.forecastRecycler?.layoutManager = layoutManager
+        adapter = ForecastAdapter(requireContext(), listOf())
+        binding?.forecastRecycler?.adapter = adapter
     }
 
     companion object {

@@ -9,6 +9,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.weather.databinding.ItemForecastBinding
 import com.example.weather.model.forecast.ForecastResult
 import com.example.weather.repository.WeatherRepositoryImpl
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.util.*
 
 class ForecastAdapter(private val context: Context, private var forecastResultList: List<ForecastResult>) : RecyclerView.Adapter<ForecastAdapter.ViewHolder>() {
 
@@ -32,11 +35,10 @@ class ForecastAdapter(private val context: Context, private var forecastResultLi
         notifyDataSetChanged()
     }
 
-
     class ViewHolder(private val binding: ItemForecastBinding, private val context: Context) : RecyclerView.ViewHolder(binding.root) {
 
         fun bindItem(forecast: ForecastResult) {
-            binding.itemRecyclerDate.text = forecast.date
+            binding.itemRecyclerDate.text = setDateFormat(forecast.date)
             binding.itemRecyclerTemp.text = forecast.temp
             binding.itemRecyclerDescription.text = forecast.description
 
@@ -91,6 +93,16 @@ class ForecastAdapter(private val context: Context, private var forecastResultLi
                 }
             }
         }
-    }
 
+        private fun setDateFormat(inputDate: String): String {
+            val inputDateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+            val outputDateFormat = DateTimeFormatter.ofPattern("d MMMM HH:mm", Locale.getDefault())
+            return try {
+                // converting a string to a date and converting it to another format
+                LocalDateTime.parse(inputDate, inputDateFormat).format(outputDateFormat)
+            } catch (e: Exception) {
+                inputDate
+            }
+        }
+    }
 }
